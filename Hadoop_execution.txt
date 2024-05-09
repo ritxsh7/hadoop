@@ -1,0 +1,38 @@
+1. Start hadoop
+=> start-all.sh
+
+2. Make directories in hadoop
+=> hadoop fs -mkdir /wordcount
+=> hadoop fs -mkdir /wordcount/input
+=> hadoop fs -mkdir /wordcount/output
+
+
+3. Make demo.txt and write some sample data inside it. Upload this file on the hdfs
+=> hadoop fs -put /home/hadoop/words.txt /wordcount/input
+
+4. Export hadoop classpath
+
+=> Export HADOOP_CLASSPATH=$(hadoop classpath)
+=> echo $HADOOP_CLASSPATH
+
+5. Write WordCount.java program in current directory
+=> touch WordCount.java
+
+6. Make a new folder "container" inside current directory and compile Java program into it
+=> mkdir container
+
+7. Compile WordCount.java into "container" folder using above classpath
+=> javac -classpath ${HADOOP_CLASSPATH} -d '/home/hadoop/container' '/home/hadoop/WordCount.java'
+
+8. Create Manifest.txt
+=> touch Manifest.txt
+=> nano Manifest.txt 
+Add this line to it : Main-Class: WordCount
+
+9. Create a jar file of all compiled classes in container folder 
+=> jar -cvf WordCount.jar Manifest.txt -C container/ .
+
+10. Run the jar file in hadoop and store the ouput in a folder
+=> hadoop jar WordCount.jar WordCount /wordcount/input /wordcount/output/output_data
+=> hadoop fs -cat /wordcount/output/output_data/part-r-00000
+
