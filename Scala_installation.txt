@@ -1,0 +1,31 @@
+1.
+
+sudo apt-get install default-jdk
+sudo apt-get install scala
+java --version 
+
+2.
+wget https://archive.apache.org/dist/spark/spark-3.0.1/spark-3.0.1-bin-hadoop2.7.tgz
+
+3.
+tar xvf spark-3.0.1-bin-hadoop2.7.tgz
+
+4.
+sudo su - 
+
+5.
+mkdir -p /opt/spark
+sudo mv /home/dl/Downloads/spark-3.0.1-bin-hadoop2.7  /opt/spark/
+
+6.
+nano ~/.bashrc
+
+**ADD**
+export SPARK_HOME=/opt/spark 
+export PATH=$PATH:$SPARK_HOME/bin
+
+source ~/.bashrc
+
+7.
+spark-shell
+
